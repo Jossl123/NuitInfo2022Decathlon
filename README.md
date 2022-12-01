@@ -1,0 +1,1 @@
+# NuitInfo2022Decathlon
