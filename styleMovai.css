@@ -5,6 +5,11 @@ body {
     background-color: blueviolet;
     background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
     font-style: italic;
+    scrollbar-width: none;
+}
+
+body::-webkit-scrollbar {
+    display: none;
 }
 
 header {
@@ -73,4 +78,15 @@ article {
 footer {
     background-color: darkred;
     padding: 2%;
+}
+
+#scroll {
+    width: 1%;
+    position: fixed;
+    height: 100%;
+    right: 0;
+}
+
+#scroll:hover {
+    display: none;
 }

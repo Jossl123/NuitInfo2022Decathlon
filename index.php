@@ -24,29 +24,42 @@
             <a href="https://www.decathlon.fr/" target="_blank"><img src="./img/DecathlonLogo.png"></a>
         </div>
         <div id="right_menu">
-            <a href="">Button</a>
-        </div>
+            <a href="./movaiCode.html">Hard mode</a>
+        </div>  
     </nav>
     <aside>
         <h1>DECATHLON TECHNOLOGY</h1>
         <p>Déposez une image pour trouver de quel sport il s'agit.</p>
         <div id="drop_zone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
-            <p>Déposez votre image ici</p>
-            <input onchange="callphpfunction(this);" type="file" id="avatar" name="avatar" accept="image/png, image/jpeg">
-            <span class="material-symbols-outlined">
-                upload
-            </span>
+            <select id="select">
+                <option value="0">1</option>
+                
+                <option value="1">2</option>
+
+                <option value="2">3</option>
+
+                <option value="3">4</option>
+
+                <option value="4">5</option>
+
+                <option value="5">6</option>
+
+                <option value="6">7</option>
+
+                <option value="7">8</option>
+                
+                <option value="8">9</option>
+            </select>
+            <button onclick="callphpfunction(document.getElementById('select'));" type="button" id="avatar" name="avatar">Analyser</button>
+            
         </div>
         <script>
             function callphpfunction(el){
-                document.getElementById("result").innerHTML = "Traitement en cours...";
-                $.post("uploadFile.php",function(data) {
-                    document.getElementById("result").innerHTML = data;    
-                }); 
+                document.getElementById("result").innerHTML = "Traitement en cours..."; 
                 $.ajax({
                     type: "POST",
                     url: "uploadFile.php",
-                    data: el.value, 
+                    data: {id : el.value}, 
                     success: function(data){
                         document.getElementById("result").innerHTML = data;  
                     },
@@ -60,6 +73,12 @@
         </script>
     <div id="result"></div>
     </aside>
+
+    <form action="honeypot.php" method="GET">
+    Inscrivez votre avis ici : <input type="text" name="message">
+
+    <input type="submit">
+    </form>
 
 </body>
 
