@@ -13,19 +13,26 @@ async function getAccessToken() {
         .catch(err => console.log(err));
 }
 
-function fetchDecathlon() {
+async function fetchDecathlon(img) {
     fetch('https://api.decathlon.net/sport_vision_api/v1/sportclassifier/predict/', {
             method: "POST",
             headers: { "Content-type": "application/json;charset=UTF-8", "Authorization": `Bearer ${token}`, "X-API-KEY": apiKey },
-            body: { "file": "https://contents.mediadecathlon.com/p1524091/k$538c9e75652557b45da85774a7231e83/dbi_ad805706+37b0+45bf+bd6c+1d8b8728a591.jpg" }
+            body: { "file": img }
         })
         .then(response => response.json())
         .then(json => {
             console.log(json)
+            return json
         })
         .catch(err => console.log(err));
 }
 
 window.onload = async function() {
-    fetchDecathlon()
+    var res = await fetchDecathlon("https://contents.mediadecathlon.com/p1524091/k$538c9e75652557b45da85774a7231e83/dbi_ad805706+37b0+45bf+bd6c+1d8b8728a591.jpg")
+    console.log(res)
 };
+
+// document.getElementById("test").addEventListener("uploadFolder?", async() => {
+//     var res = await fetchDecathlon("https://contents.mediadecathlon.com/p1524091/k$538c9e75652557b45da85774a7231e83/dbi_ad805706+37b0+45bf+bd6c+1d8b8728a591.jpg")
+//     console.log(res.data.sport[0].name)
+// })
