@@ -12,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <title>Décathlon - Sport JO 2024</title>
     <script src="./index.js"></script>
 </head>
@@ -31,22 +32,33 @@
         <p>Déposez une image pour trouver de quel sport il s'agit.</p>
         <div id="drop_zone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
             <p>Déposez votre image ici</p>
-            <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg">
+            <input onchange="callphpfunction(this);" type="file" id="avatar" name="avatar" accept="image/png, image/jpeg">
             <span class="material-symbols-outlined">
                 upload
             </span>
         </div>
-        <p class="error"></p>
-        <p class="JO">Il s'agit du #response </p>
-        <p class="JO">
-            Ce sport sera présent aux Jeux Olympiques 2024<br>
-            Vous pouvez dès après-en vous procurer du matériel chez Décathlon pour vous y préparer !
-        </p>
-        <p class="JO">
-            Ce sport en sera malheureusement pas présent aux Jeux Olympiques 2024<br>
-            Vous pouvez tout de même vous procurer du matériel chez Décathlon pour vous entraîner !
-        </p>
-
+        <script>
+            function callphpfunction(el){
+                document.getElementById("result").innerHTML = "Traitement en cours...";
+                $.post("uploadFile.php",function(data) {
+                    document.getElementById("result").innerHTML = data;    
+                }); 
+                $.ajax({
+                    type: "POST",
+                    url: "uploadFile.php",
+                    data: el.value, 
+                    success: function(data){
+                        document.getElementById("result").innerHTML = data;  
+                    },
+                    // Alert status code and error if fail
+                    error: function (xhr, ajaxOptions, thrownError){
+                        alert(xhr.status);
+                        alert(thrownError);
+                    }
+                });
+            }
+        </script>
+    <div id="result"></div>
     </aside>
 
 </body>
